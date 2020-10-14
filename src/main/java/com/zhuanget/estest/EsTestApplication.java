@@ -38,11 +38,11 @@ public class EsTestApplication {
         return LiteJobConfiguration.newBuilder(simpleJobConfig).build();
     }
 
-    @Bean
-    public CommandLineRunner commandLineRunner() {
-        return (String... args) -> {
-            new JobScheduler(createRegistryCenter(), createJobConfiguration()).init();
-        };
-    }
+//    @Bean
+//    public CommandLineRunner commandLineRunner() {
+//        return (String... args) -> {
+//            new JobScheduler(createRegistryCenter(), createJobConfiguration()).init();
+//        };
+//    }
 
 }

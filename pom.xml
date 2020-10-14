@@ -65,6 +65,12 @@
 		</dependency>
 
 		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.44</version>
+		</dependency>
+
+		<dependency>
 			<groupId>com.dangdang</groupId>
 			<artifactId>elastic-job-lite-core</artifactId>
 			<version>2.1.5</version>
@@ -80,6 +86,11 @@
 					<artifactId>junit-vintage-engine</artifactId>
 				</exclusion>
 			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>3.5.0</version>
 		</dependency>
 	</dependencies>
 

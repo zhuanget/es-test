@@ -1,0 +1,1 @@
+REPLACE INTO `test`.`t_test` (`id`, `name`, `age`) VALUES ('1', 'zhuanget', '27');
