@@ -2,6 +2,7 @@ package com.zhuanget.estest.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.zhuanget.estest.config.ESClientFactory;
+import com.zhuanget.estest.constant.GlobalConst;
 import com.zhuanget.estest.enums.ESMethod;
 import com.zhuanget.estest.service.ESRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -32,13 +33,14 @@ public class ESRepositoryImpl implements ESRepository {
     private ESClientFactory esClientFactory;
 
     @Override
-    public boolean createIndex(String index) {
+    public boolean createIndex(String index, String setting) {
         // TODO：可以后期优化加入重试机制
         RestHighLevelClient restHighLevelClient = null;
         try {
             restHighLevelClient = getClient();
             Request request = new Request(ESMethod.PUT.getMethod(), "/" + index);
-            // TODO：设置setting，mapping
+            // 设置setting
+            request.setJsonEntity(setting);
             try {
                 Response response = restHighLevelClient.getLowLevelClient().performRequest(request);
                 log.info("response.getEntity: {}", response.getEntity());
@@ -50,6 +52,26 @@ public class ESRepositoryImpl implements ESRepository {
         } finally {
             silentClose(restHighLevelClient);
         }
+    }
+
+    @Override
+    public boolean createMapping(String index, String mapping) {
+        RestHighLevelClient restHighLevelClient = null;
+        try {
+            restHighLevelClient = getClient();
+            Request request = new Request(ESMethod.POST.getMethod(), "/" + index + "/_mapping");
+            // 设置mapping
+            request.setJsonEntity(GlobalConst.SIMPLE_BOOK_MAPPINGS);
+            try {
+                Response response = restHighLevelClient.getLowLevelClient().performRequest(request);
+                return true;
+            } catch (IOException e) {
+                log.error("some errors happen when create mappings: ", e);
+            }
+        }finally {
+            silentClose(restHighLevelClient);
+        }
+        return false;
     }
 
     @Override

@@ -20,29 +20,29 @@ public class EsTestApplication {
         SpringApplication.run(EsTestApplication.class, args);
     }
 
-    private static CoordinatorRegistryCenter createRegistryCenter() {
-        CoordinatorRegistryCenter regCenter = new ZookeeperRegistryCenter(
-                new ZookeeperConfiguration("127.0.0.1:2181,192.168.11.112:32181", "elastic-job-et"));
-        regCenter.init();
-        return regCenter;
-    }
-
-    private static LiteJobConfiguration createJobConfiguration() {
-        // 定义作业核心配置
-        JobCoreConfiguration simpleCoreConfig = JobCoreConfiguration.newBuilder("demoSimpleJob", "0/50 * * * * ?", 5).build();
-
-        // 定义SIMPLE类型配置
-        SimpleJobConfiguration simpleJobConfig = new SimpleJobConfiguration(simpleCoreConfig, EtSimpleJob.class.getCanonicalName());
-
-        // 定义Lite作业根配置
-        return LiteJobConfiguration.newBuilder(simpleJobConfig).build();
-    }
-
-    @Bean
-    public CommandLineRunner commandLineRunner() {
-        return (String... args) -> {
-            new JobScheduler(createRegistryCenter(), createJobConfiguration()).init();
-        };
-    }
+//    private static CoordinatorRegistryCenter createRegistryCenter() {
+//        CoordinatorRegistryCenter regCenter = new ZookeeperRegistryCenter(
+//                new ZookeeperConfiguration("127.0.0.1:2181,192.168.11.112:32181", "elastic-job-et"));
+//        regCenter.init();
+//        return regCenter;
+//    }
+//
+//    private static LiteJobConfiguration createJobConfiguration() {
+//        // 定义作业核心配置
+//        JobCoreConfiguration simpleCoreConfig = JobCoreConfiguration.newBuilder("demoSimpleJob", "0/50 * * * * ?", 5).build();
+//
+//        // 定义SIMPLE类型配置
+//        SimpleJobConfiguration simpleJobConfig = new SimpleJobConfiguration(simpleCoreConfig, EtSimpleJob.class.getCanonicalName());
+//
+//        // 定义Lite作业根配置
+//        return LiteJobConfiguration.newBuilder(simpleJobConfig).build();
+//    }
+//
+//    @Bean
+//    public CommandLineRunner commandLineRunner() {
+//        return (String... args) -> {
+//            new JobScheduler(createRegistryCenter(), createJobConfiguration()).init();
+//        };
+//    }
 
 }

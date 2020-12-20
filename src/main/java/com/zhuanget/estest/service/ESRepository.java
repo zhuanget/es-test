@@ -11,9 +11,18 @@ public interface ESRepository {
     /**
      * 创建索引
      * @param index
+     * @param setting
+     * @return 创建状态
+     */
+    boolean createIndex(String index, String setting);
+
+    /**
+     * 创建映射关系
+     * @param index
+     * @param mapping
      * @return
      */
-    boolean createIndex(String index);
+    boolean createMapping(String index, String mapping);
 
     /**
      * 创建document

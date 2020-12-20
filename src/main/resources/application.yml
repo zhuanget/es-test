@@ -2,5 +2,5 @@ server:
   port: 9010
 
 elasticsearch:
-  host: 127.0.0.1
+  host: 47.112.156.156
   port: 9200
