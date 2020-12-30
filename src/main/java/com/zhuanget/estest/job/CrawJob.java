@@ -21,7 +21,7 @@ public class CrawJob {
     @Autowired
     private SimpleBookProcessor simpleBookProcessor;
 
-    @Scheduled(cron = "0 0 */6 * * ?")
+    @Scheduled(cron = "${craw.job.cron:0 0 */6 * * ?}")
     public void execute() {
         log.info("****************** 爬虫开始 *******************");
         Spider.create(simpleBookProcessor)

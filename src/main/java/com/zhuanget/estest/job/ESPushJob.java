@@ -26,7 +26,7 @@ public class ESPushJob {
     @Resource
     private ESRepository esRepository;
 
-    @Scheduled(cron = "*/10 * * * * ?")
+    @Scheduled(cron = "${es.push.job.cron:*/10 * * * * ?}")
     public void execute() {
         log.info("*************** 开始执行ES数据推送 **************");
         List<SimpleBook> simpleBookList = new ArrayList<>();
