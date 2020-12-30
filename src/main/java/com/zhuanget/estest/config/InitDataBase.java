@@ -17,7 +17,7 @@ import java.sql.SQLException;
  * @author Zhuang_ET
  * @since 2020-10-14 11:30:46
  */
-@Configuration
+//@Configuration
 @Slf4j
 public class InitDataBase implements ApplicationListener<ContextRefreshedEvent> {
 

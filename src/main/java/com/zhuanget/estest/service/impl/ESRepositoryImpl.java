@@ -1,11 +1,13 @@
 package com.zhuanget.estest.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.zhuanget.estest.config.ESClientFactory;
 import com.zhuanget.estest.constant.GlobalConst;
 import com.zhuanget.estest.enums.ESMethod;
 import com.zhuanget.estest.service.ESRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.entity.ContentType;
 import org.apache.http.nio.entity.NStringEntity;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.annotation.Resource;
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.util.List;
 
 /**
  * @author Zhuang_ET
@@ -113,6 +116,30 @@ public class ESRepositoryImpl implements ESRepository {
     @Override
     public JSONObject query(String index, Long id) {
         return null;
+    }
+
+    @Override
+    public <T> int batchInsert(List<T> list, String index) {
+        if (CollectionUtils.isEmpty(list)) {
+            return 0;
+        }
+        StringBuilder sb = new StringBuilder();
+        String metaData = "{ \"index\":{} }\n";
+        for (T obj : list) {
+            sb.append(metaData).append(JSON.toJSONString(obj)).append('\n');
+        }
+        try (RestHighLevelClient restHighLevelClient = getClient()) {
+            String endpoint = index + "/" + "_bulk";
+            Request request = new Request(ESMethod.POST.getMethod(), endpoint);
+            HttpEntity entity = new NStringEntity(sb.toString(), ContentType.APPLICATION_JSON);
+            request.setEntity(entity);
+            Response response = restHighLevelClient.getLowLevelClient().performRequest(request);
+            log.info("response.entity: {}", response.getEntity());
+            return list.size();
+        } catch (IOException e) {
+            log.error("batch insert doc to index[{}] error, e: ", index, e);
+        }
+        return 0;
     }
 
     private RestHighLevelClient getClient() {

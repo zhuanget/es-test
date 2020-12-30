@@ -1,5 +1,10 @@
 package com.zhuanget.estest.constant;
 
+import com.zhuanget.estest.entity.SimpleBook;
+
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingDeque;
+
 /**
  * @author Zhuang_ET
  * @since 2020-09-29 16:04:33
@@ -51,7 +56,7 @@ public class GlobalConst {
     public static final String SIMPLE_BOOK_MAPPINGS = "{\n" +
             "    \"properties\": {\n" +
             "        \"id\": {\n" +
-            "            \"type\": \"integer\"\n" +
+            "            \"type\": \"keyword\"\n" +
             "        },\n" +
             "        \"name\": {\n" +
             "            \"type\": \"text\",\n" +
@@ -82,4 +87,6 @@ public class GlobalConst {
             "        }\n" +
             "    }\n" +
             "}";
+
+    public static final BlockingQueue<SimpleBook> SIMPLE_BOOK_BATCH_QUEUE = new LinkedBlockingDeque<>(4096);
 }

@@ -2,6 +2,8 @@ package com.zhuanget.estest.service;
 
 import com.alibaba.fastjson.JSONObject;
 
+import java.util.List;
+
 /**
  * @author Zhuang_ET
  * @since 2020-09-29 16:53:56
@@ -47,4 +49,12 @@ public interface ESRepository {
      * @return
      */
     JSONObject query(String index, Long id);
+
+    /**
+     * 批量插入数据
+     * @param list
+     * @param index
+     * @return
+     */
+    <T> int batchInsert(List<T> list, String index);
 }

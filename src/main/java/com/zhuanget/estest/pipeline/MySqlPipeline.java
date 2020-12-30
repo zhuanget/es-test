@@ -12,7 +12,6 @@ public class MySqlPipeline implements Pipeline {
     @Override
     public void process(ResultItems resultItems, Task task) {
         SimpleBook simpleBook = new SimpleBook();
-        simpleBook.setTitle(resultItems.get("title"));
         simpleBook.setUser(resultItems.get("user"));
     }
 }
