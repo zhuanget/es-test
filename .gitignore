@@ -33,5 +33,9 @@ build/
 .vscode/
 
 ### config ###
-*.yml
-*.txt
+!**/src/main/resources/*.yml
+!**/src/main/resources/*.txt
+
+### Docker ###
+docker/
+Dockerfile
